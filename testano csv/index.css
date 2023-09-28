@@ -1,0 +1,19 @@
+table {
+    border-collapse: collapse; /* Une as bordas das células */
+    min-width: 400px;
+    min-height: 500px;
+  }
+
+  th, td {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    min-height: auto;
+    min-width: 180px;
+    white-space: normal;
+  }
+  .minha-div {
+    max-width: 1300px; /* Define uma largura máxima de 500 pixels */
+    max-height: 600px; /* Define uma altura máxima de 300 pixels */
+    overflow: auto; /* Adiciona uma barra de rolagem caso o conteúdo exceda o tamanho máximo */
+    background-color: rgb(255, 255, 255); /* Apenas para visualização do exemplo */
+  }

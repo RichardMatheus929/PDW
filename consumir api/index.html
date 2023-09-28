@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testando</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <div id="area">
+        <form id="formulario" autocomplete="off">
+            <fieldset>
+                <legend>Formulário</legend>
+                <label>Mensagem:</label><input class="campo_nome" type="text" id="campo"><br>
+                <label>Tradução:</label><br><textarea class="msg" cols="35" rows="8"
+                    id="translatedText"></textarea><br><br>
+                <input class="btn_submit" type="button" value="Enviar" id="translateButton">
+            </fieldset>
+        </form>
+    </div>
+    <h3>Selecione a linguagem que voce vai digitar</h3>
+    <select id="seletor">
+        <option value="es">Espanhol</option>
+        <option value="fr">Frances</option>
+        <option value="en">Inglês</option>
+        <option value="pt-BR">português</option>
+
+    </select>
+    <h3>Selecione a linguagem que voce vai Traduzir</h3>
+    <select id="seletorRes">
+        <option value="pt-BR">português </option>
+        <option value="es">Espanhol </option>
+        <option value="fr">Frances </option>
+        <option value="en">Inglês </option>
+    </select>
+
+
+    <script>
+        document
+            .getElementById("translateButton")
+            .addEventListener("click", async function () {
+
+                var campo = document.getElementById('campo');
+
+                const sourceText = campo.value;
+                const targetLanguage = document.getElementById("seletor").value; // Código de idioma para português brasileiro
+                const targetLanguageRes = document.getElementById("seletorRes").value;
+
+                const response = await fetch(
+                    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+                        sourceText
+                    )}&langpair=${targetLanguage}|${targetLanguageRes}`
+                );
+
+                const data = await response.json();
+                const translatedText = data.responseData.translatedText;
+                document.getElementById("translatedText").textContent =
+                    translatedText;
+
+            });
+        let valorSelecionado = "";
+
+        // Função para ser executada quando uma opção for selecionada
+        function atualizarValor() {
+            valorSelecionado = document.getElementById("seletor").value;
+            console.log("Valor selecionado: " + valorSelecionado);
+            targetLanguage = valorSelecionado
+        }
+
+        // Adicionar um evento de escuta para o evento "change" do <select>
+        document.getElementById("seletor").addEventListener("change", atualizarValor);
+    </script>
+</body>
+
+</html>
